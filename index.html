@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CashFlow AI</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">⚡ CashFlow AI</div>
+    <button class="nav active" data-page="dashboard">Dashboard</button>
+    <button class="nav" data-page="leads">Leads</button>
+    <button class="nav" data-page="content">Content Engine</button>
+    <button class="nav" data-page="proposals">Proposals</button>
+    <button class="nav" data-page="settings">Autopilot</button>
+    <div class="small">Phone-first business OS<br>v1 • local storage</div>
+  </aside>
+
+  <main>
+    <header><div><h1 id="title">Dashboard</h1><p id="subtitle">Your sales pipeline at a glance.</p></div>
+    <button class="primary" onclick="openLead()">+ Add lead</button></header>
+
+    <section id="dashboard" class="page active">
+      <div class="cards">
+        <div class="card"><span>Revenue</span><strong id="revenue">₹0</strong></div>
+        <div class="card"><span>Leads</span><strong id="leadCount">0</strong></div>
+        <div class="card"><span>Interested</span><strong id="interested">0</strong></div>
+        <div class="card"><span>Won</span><strong id="won">0</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Autopilot queue</h2>
+        <p>AI prepares work; you approve anything that contacts a real person.</p>
+        <div id="queue"></div>
+      </div>
+      <div class="panel">
+        <h2>Quick start</h2>
+        <div class="steps"><div>1<br><b>Add leads</b></div><div>2<br><b>Generate outreach</b></div><div>3<br><b>Approve & send</b></div><div>4<br><b>Generate delivery</b></div></div>
+      </div>
+    </section>
+
+    <section id="leads" class="page">
+      <div class="toolbar"><input id="search" placeholder="Search businesses..." oninput="renderLeads()"><select id="filter" onchange="renderLeads()"><option>All</option><option>New</option><option>Contacted</option><option>Interested</option><option>Won</option><option>Lost</option></select></div>
+      <div id="leadList"></div>
+    </section>
+
+    <section id="content" class="page">
+      <div class="panel">
+        <h2>AI Content Engine</h2>
+        <p>Enter a client brief. The built-in generator creates a starter content pack. Connect an AI API later for live generation.</p>
+        <div class="grid2">
+          <label>Business name<input id="biz" placeholder="Cocoa Corner"></label>
+          <label>Business type<input id="type" placeholder="Bakery"></label>
+          <label>Products/services<input id="products" placeholder="Brownies, cakes, coffee"></label>
+          <label>Audience<input id="audience" placeholder="Local dessert lovers"></label>
+        </div>
+        <button class="primary" onclick="generateContent()">Generate content pack</button>
+      </div>
+      <div id="contentOut" class="panel hidden"></div>
+    </section>
+
+    <section id="proposals" class="page">
+      <div class="panel">
+        <h2>Proposal generator</h2>
+        <div class="grid2">
+          <label>Client/business<input id="pname" placeholder="Business name"></label>
+          <label>Package<select id="package"><option value="499">Starter — ₹499</option><option value="999">Full — ₹999</option><option value="2999">Monthly — ₹2,999</option><option value="7500">Premium — ₹7,500</option></select></label>
+        </div>
+        <button class="primary" onclick="generateProposal()">Create proposal</button>
+      </div>
+      <div id="proposalOut" class="panel hidden"></div>
+    </section>
+
+    <section id="settings" class="page">
+      <div class="panel">
+        <h2>Autopilot controls</h2>
+        <label class="toggle"><input type="checkbox" id="autoDraft" checked> Automatically draft outreach for new leads</label>
+        <label class="toggle"><input type="checkbox" id="autoFollow" checked> Create follow-up tasks for unanswered leads</label>
+        <label class="toggle"><input type="checkbox" id="autoDelivery" checked> Generate delivery checklist after a sale</label>
+        <div class="warning">Human approval stays required before external messages are sent. This protects you from spam, accidental claims, and unwanted outreach.</div>
+      </div>
+      <div class="panel">
+        <h2>Data</h2>
+        <button onclick="exportData()">Export backup</button>
+        <button class="danger" onclick="clearData()">Delete local data</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden">
+ <div class="modalbox">
+  <div class="modalhead"><h2>Add lead</h2><button onclick="closeModal()">×</button></div>
+  <label>Business name<input id="lname"></label>
+  <label>Niche<input id="lniche" placeholder="Bakery"></label>
+  <label>Contact<input id="lcontact" placeholder="Instagram / WhatsApp / email"></label>
+  <label>Problem noticed<textarea id="lproblem" placeholder="Posting is inconsistent..."></textarea></label>
+  <label>Potential value<input id="lvalue" type="number" placeholder="999"></label>
+  <button class="primary" onclick="saveLead()">Save lead</button>
+ </div>
+</div>
+<script src="app.js"></script>
+</body></html>
